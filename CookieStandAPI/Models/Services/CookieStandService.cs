@@ -18,14 +18,21 @@ public class CookieStandService : ICookieStand
 
     public async Task<CookieStandDto> Create(CookieStandDto cookieStandDto)
     {
-        var cookieStand = _mapper.Map<CookieStand>(cookieStandDto);
+        CookieStand cookieStandToAdd = _mapper.Map<CookieStand>(cookieStandDto);
 
-        // Save to database
-        _context.CookieStands.Add(cookieStand);
+        await _context.CookieStands.AddAsync(cookieStandToAdd);
         await _context.SaveChangesAsync();
 
-        return _mapper.Map<CookieStandDto>(cookieStand);
+        var hourlySalesDtos = await GenerateHourlySales(cookieStandToAdd.Id, cookieStandToAdd.Minimum_Customers_Per_Hour, cookieStandToAdd.Maximum_Customers_Per_Hour, cookieStandToAdd.Average_Cookies_Per_Sale);
+        cookieStandToAdd.HourlySales = _mapper.Map<List<HourlySale>>(hourlySalesDtos);
+
+        await _context.SaveChangesAsync();
+        cookieStandDto.Id = cookieStandToAdd.Id;
+
+        return cookieStandDto;
     }
+
+
 
     public async Task Delete(int id)
     {
@@ -38,12 +45,6 @@ public class CookieStandService : ICookieStand
     {
         var cookieStands = await _context.CookieStands.Include(cs => cs.HourlySales).ToListAsync();
         var cookieStandDtos = _mapper.Map<List<CookieStandDto>>(cookieStands);
-
-        foreach (var dto in cookieStandDtos)
-        {
-            dto.HourlySales = dto.HourlySales.Select(hs => new HourlySaleView { Sales = hs.Sales }).ToList();
-        }
-
         return cookieStandDtos;
     }
 
@@ -51,11 +52,9 @@ public class CookieStandService : ICookieStand
     {
         var cookieStand = await _context.CookieStands.Include(cs => cs.HourlySales).FirstOrDefaultAsync(cs => cs.Id == id);
         var cookieStandDto = _mapper.Map<CookieStandDto>(cookieStand);
-
-        cookieStandDto.HourlySales = cookieStandDto.HourlySales.Select(hs => new HourlySaleView { Sales = hs.Sales }).ToList();
-
         return cookieStandDto;
     }
+
 
 
 
@@ -77,5 +76,34 @@ public class CookieStandService : ICookieStand
 
         return _mapper.Map<CookieStandDto>(existingCookieStand);
     }
+
+    public async Task<List<HourlySaleDto>> GenerateHourlySales(int CookieStandId, int Minimum_Customers_Per_Hour, int Maximum_Customers_Per_Hour, double Average_Cookies_Per_Sale)
+    {
+        var random = new Random();
+        var hourlySalesList = new List<HourlySaleDto>();
+
+        for (int hour = 1; hour <= 14; hour++)
+        {
+            var customersThisHour = random.Next(Minimum_Customers_Per_Hour, Maximum_Customers_Per_Hour + 1);
+            var cookiesSoldThisHour = (int)(customersThisHour * Average_Cookies_Per_Sale);
+
+            var hourlySale = new HourlySale
+            {
+                CookieStandId = CookieStandId,
+                HourSale = cookiesSoldThisHour
+            };
+
+            _context.HourlySales.Add(hourlySale);
+
+            var hourlySaleDto = _mapper.Map<HourlySaleDto>(hourlySale);
+            hourlySalesList.Add(hourlySaleDto);
+        }
+
+        await _context.SaveChangesAsync();
+
+        return hourlySalesList;
+    }
+
+
 }
 

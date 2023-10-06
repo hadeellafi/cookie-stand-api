@@ -9,12 +9,12 @@ namespace CookieStandAPI.Helpers
         public AutoMapperProfile()
         {
             CreateMap<CookieStand, CookieStandDto>()
-                .ForMember(dest => dest.HourlySales, opt => opt.MapFrom(src => src.HourlySales.Select(hs => new HourlySaleView { Sales = hs.Sales })))
+                .ForMember(dest => dest.HourlySales, opt => opt.MapFrom(src => src.HourlySales.Select(hs => hs.HourSale)))
                 .ReverseMap();
+            CreateMap<HourlySaleDto, HourlySale>().ReverseMap();
 
-            CreateMap<HourlySale, HourlySaleDto>()
-                .ReverseMap();
         }
+
     }
 
 }

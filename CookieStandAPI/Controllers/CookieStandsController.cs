@@ -25,7 +25,7 @@ namespace CookieStandAPI.Controllers
 
         // GET: api/CookieStands
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CookieStandDto>>> GetCookieStands()
+        public async Task<ActionResult<IEnumerable<CookieStandDto>>> cookiestands()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace CookieStandAPI.Controllers
 
         // GET: api/CookieStands/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CookieStandDto>> GetCookieStand(int id)
+        public async Task<ActionResult<CookieStandDto>> cookiestand(int id)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace CookieStandAPI.Controllers
 
         // PUT: api/CookieStands/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<CookieStandDto>> PutCookieStand(int id, CookieStandDto cookieStand)
+        public async Task<ActionResult<CookieStandDto>> cookiestand(int id, CookieStandDto cookieStand)
         {
             if (id != cookieStand.Id)
             {
@@ -82,7 +82,7 @@ namespace CookieStandAPI.Controllers
 
         // POST: api/CookieStands
         [HttpPost]
-        public async Task<ActionResult<CookieStandDto>> CreateCookieStand(CookieStandDto cookieStand)
+        public async Task<ActionResult<CookieStandDto>> cookiestand(CookieStandDto cookieStand)
         {
             try
             {

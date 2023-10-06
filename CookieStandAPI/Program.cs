@@ -4,7 +4,7 @@ using CookieStandApi.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-
+using CookieStandAPI.Models.Interfaces;
 
 namespace CookieStandAPI
 {
@@ -21,7 +21,7 @@ namespace CookieStandAPI
             builder.Services
                 .AddDbContext<CookieStandDbContext>(options => options.UseSqlServer(connString));
 
-
+            builder.Services.AddTransient<ICookieStand, CookieStandService>();
             builder.Services.AddIdentity<AuthUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
@@ -39,6 +39,16 @@ namespace CookieStandAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                    });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -47,6 +57,7 @@ namespace CookieStandAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors();
 
             app.UseHttpsRedirection();
 

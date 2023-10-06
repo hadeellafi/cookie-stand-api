@@ -10,7 +10,7 @@
         public double Average_Cookies_Per_Sale { get; set; }
         public string? Owner { get; set; }
 
-        public List<HourlySale>? HourlySales { get; set; }
+        public List<HourlySale> HourlySales { get; set; }
     }
 
     
