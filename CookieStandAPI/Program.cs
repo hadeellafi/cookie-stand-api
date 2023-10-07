@@ -1,4 +1,11 @@
 
+using CookieStandApi.Data;
+using CookieStandApi.Models.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using CookieStandAPI.Models.Interfaces;
+
 namespace CookieStandAPI
 {
     public class Program
@@ -9,11 +16,39 @@ namespace CookieStandAPI
 
             // Add services to the container.
 
+            string connString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services
+                .AddDbContext<CookieStandDbContext>(options => options.UseSqlServer(connString));
+
+            builder.Services.AddTransient<ICookieStand, CookieStandService>();
+            builder.Services.AddIdentity<AuthUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<CookieStandDbContext>();
+
+            builder.Services.AddAutoMapper(typeof(Program));
+
+            builder.Services.AddAuthentication();
+            builder.Services.AddAuthorization();
+
             builder.Services.AddControllers();
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                    });
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -22,9 +57,11 @@ namespace CookieStandAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
