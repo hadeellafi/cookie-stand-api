@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookieStandAPI.Migrations
 {
     [DbContext(typeof(CookieStandDbContext))]
-    [Migration("20231002223707_addIntialTables")]
-    partial class addIntialTables
+    [Migration("20231010051548_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,15 +94,15 @@ namespace CookieStandAPI.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "179acf5b-f966-4e49-bab1-14c309632ff5",
+                            ConcurrencyStamp = "d43c015a-dff3-4764-81e8-9ac022636ecb",
                             Email = "admin@gamil.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIPNm8vsNXG9m1mCkFCpfsydCoJRnlPP2GR0dfG0HCpZ1FoMrK2kaps2El5fprc1yw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE+TVBg2ZsSBqNQ+558tJhsl6tXfzTkQfaaLGVL73pu03zvJue5+HpilCVxbFqe83Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c92b4bc9-139c-4605-96ed-0ed9e6ae1b40",
+                            SecurityStamp = "e7ad087b-7563-46ac-8212-4962d047440b",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -151,10 +151,7 @@ namespace CookieStandAPI.Migrations
                     b.Property<int>("CookieStandId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Hour")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Sales")
+                    b.Property<int>("HourSale")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

@@ -91,15 +91,15 @@ namespace CookieStandAPI.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "88131758-c5ab-4271-a9f6-c7936fac5b60",
+                            ConcurrencyStamp = "d43c015a-dff3-4764-81e8-9ac022636ecb",
                             Email = "admin@gamil.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGWeefOakj2M3cooV+fm14++XB2JT+ZtkdHB/nRzsOW6ldwBj5pPP/CljZIzbUsemQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE+TVBg2ZsSBqNQ+558tJhsl6tXfzTkQfaaLGVL73pu03zvJue5+HpilCVxbFqe83Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c35f17c3-b5e2-4bba-86d7-77d02b07741d",
+                            SecurityStamp = "e7ad087b-7563-46ac-8212-4962d047440b",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
