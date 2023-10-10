@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CookieStandAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class addIntialTables : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -182,8 +182,7 @@ namespace CookieStandAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Hour = table.Column<int>(type: "int", nullable: false),
-                    Sales = table.Column<int>(type: "int", nullable: false),
+                    HourSale = table.Column<int>(type: "int", nullable: false),
                     CookieStandId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -209,7 +208,7 @@ namespace CookieStandAPI.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "179acf5b-f966-4e49-bab1-14c309632ff5", "admin@gamil.com", false, false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAIAAYagAAAAEIPNm8vsNXG9m1mCkFCpfsydCoJRnlPP2GR0dfG0HCpZ1FoMrK2kaps2El5fprc1yw==", null, false, "c92b4bc9-139c-4605-96ed-0ed9e6ae1b40", false, "admin" });
+                values: new object[] { "1", 0, "d43c015a-dff3-4764-81e8-9ac022636ecb", "admin@gamil.com", false, false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAIAAYagAAAAEE+TVBg2ZsSBqNQ+558tJhsl6tXfzTkQfaaLGVL73pu03zvJue5+HpilCVxbFqe83Q==", null, false, "e7ad087b-7563-46ac-8212-4962d047440b", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

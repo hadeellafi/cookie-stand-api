@@ -25,7 +25,7 @@ namespace CookieStandAPI.Controllers
 
         // GET: api/CookieStands
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CookieStandDto>>> cookiestands()
+        public async Task<ActionResult<IEnumerable<CookieStandDto>>> CookieStands()
         {
             try
             {

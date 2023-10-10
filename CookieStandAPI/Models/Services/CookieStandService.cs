@@ -29,7 +29,7 @@ public class CookieStandService : ICookieStand
         await _context.SaveChangesAsync();
         cookieStandDto.Id = cookieStandToAdd.Id;
 
-        return cookieStandDto;
+        return await GetCookieStandById(cookieStandToAdd.Id);
     }
 
 
