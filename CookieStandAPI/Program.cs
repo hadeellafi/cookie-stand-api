@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using CookieStandAPI.Models.Interfaces;
+using CookieStandAPI.Models.Services;
 
 namespace CookieStandAPI
 {
@@ -21,7 +22,11 @@ namespace CookieStandAPI
             builder.Services
                 .AddDbContext<CookieStandDbContext>(options => options.UseSqlServer(connString));
 
+            builder.Services.AddScoped<JwtTokenService>();
+
             builder.Services.AddTransient<ICookieStand, CookieStandService>();
+            builder.Services.AddTransient<IUser, UserService>();
+
             builder.Services.AddIdentity<AuthUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
